@@ -4,28 +4,32 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
     <link rel="stylesheet" href="./assets/css/style.css">
     
     <title>Quiz</title>
 </head>
-<body>
-    <div class="container">
-        <div id="question-container">
-            <div id="question">question</div>
-            <div id="answer-buttons" class="btn-grid">
-                <button class="btn">answer 1</button>
-                <button class="btn">answer 2</button>
-                <button class="btn">answer 3</button>
-            </div>
-            <div class="controls">
-                <button id="start-btn">start</button>
-                <button id="next-btn">next</button>
-            </div>
-        </div>
+<div class="container" >
+    <div class="row justify-content-between"> 
+            <h1 class="col-3">high scores</h1>
+            <h1 class="col-2">timer</h1>
     </div>
 
-    <script src="/quiz/assets/js/script.js"></script>
+    <div class="row justify-content-center align-items-center height">
+        <div class=>
+            <h2 id="questions" class="col-12"> Welcome to the time quiz!</h2>
+            <ul>
+                <li><button type="button" class="btn btn-outline-dark margin-btn-top">answer 1</button></li>
+                <li><button type="button" class="btn btn-outline-dark margin-btn-top">answer 2</button></li>
+                <li><button type="button" class="btn btn-outline-dark margin-btn-top">answer 3</button></li>
+            </ul>
+            
+        </div>
+
+    </div>
+</div>
+
+<body>
 </body>
 </html>
 
