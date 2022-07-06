@@ -4,20 +4,24 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    
     <link rel="stylesheet" href="./assets/css/style.css">
     
     <title>Quiz</title>
 </head>
 <body>
-    <div class="container vh-100">   
-        <div class="row justify-content-between">   
-            <button id="scores-btn" type="button" class="btn btn-info">view high scores</button>
-            <h1 id="time" class="timer">timer: </h1>
-        </div>
-        <div class="h-100 d-flex align-items-center justify-content-center">
-            <div id="content" class="quiz-content">QUIZ CONTENT HERE!</div>
-            <button id="start-btn" type="button" class="btn btn-success">Start here!</button>
+    <div class="container">
+        <div id="question-container">
+            <div id="question">question</div>
+            <div id="answer-buttons" class="btn-grid">
+                <button class="btn">answer 1</button>
+                <button class="btn">answer 2</button>
+                <button class="btn">answer 3</button>
+            </div>
+            <div class="controls">
+                <button id="start-btn">start</button>
+                <button id="next-btn">next</button>
+            </div>
         </div>
     </div>
 
