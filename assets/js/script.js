@@ -1,7 +1,6 @@
-var startButton = document.getElementById('start-btn');
-
-startButton.addEventListener("click", startGame);
-
+var startButton = document.getElementById("start-btn")
+startButton.addEventListener("click", startGame)
+var prueba = document.querySelector("#questions")
 var quizQuestions = [
     {
         question: "Could you name some built-in methods in JavaScript?",
@@ -49,10 +48,7 @@ var quizQuestions = [
 
 //start button
 function startGame(){
-    console.log('started');
-    startButton.classList.add('hide')
-
-
+prueba.textContent = "PRIMERA PREGUNTA"
 }
 //show questions
 
@@ -64,3 +60,5 @@ function selectAnswer(){
 
 
 }
+
+
