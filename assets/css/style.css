@@ -1,3 +1,8 @@
+*{
+    background-color: #958e8e;
+}
+
+
 .height{
     height: 600px;
 }
@@ -9,4 +14,21 @@
 
 .hide{
     display: none;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    color: white;
+    padding: 0 60px 0 60px;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin: auto;
+    width: auto;
+    color: white;
+
 }

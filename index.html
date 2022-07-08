@@ -11,28 +11,29 @@
     <title>Quiz</title>
 </head>
 <!--container for high score and timer-->
-<!-- <div class="container" > -->
-<div>
-    <h1>high scores</h1>
-</div>
-<div>
-    <h1 class="time">time <span id="time">0</span></h1>
-</div>
+<header class="nav">
+    <div>
+        <h1>high scores</h1>
+    </div>
+    <div>
+        <h1 class="time">time <span id="time">0</span></h1>
+    </div>
+</header>
 
 
 
 <!--start section!-->
 <!-- <div class="row justify-content-center align-items-center height"> -->
-<div id="start">
-    <h2 id="welcome-text" class="col-12"> Welcome to the time quiz!</h2>
+<div id="start" class="main">
+    <h2 id="welcome-text" class="title"> Welcome to the time quiz!</h2>
     <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dignissimos a officia accusamus quam alias nobis, quod
         impedit facilis laudantium deleniti molestiae vero sed veniam hic eos provident animi sequi velit.</p>
     <!-- <div class="row justify-content-center"> -->
-    <button id="start-btn" type="button" class=" col-5 btn btn-outline-dark margin-btn-top">Start</button>
+    <button id="start-btn" type="button" class="start-btn">Start</button>
 </div>
 
-<div id="quizquestions" class="hide">
-    <h3 class="questions"></h3>
+<div id="quizquestion" class="hide">
+    <h3 id="q-text" class="questions"></h3>
     <div id="answers"></div>
 </div>
 
