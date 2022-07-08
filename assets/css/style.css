@@ -1,8 +1,3 @@
-*{
-    background-color: #958e8e;
-}
-
-
 .height{
     height: 600px;
 }
@@ -19,16 +14,16 @@
 .nav {
     display: flex;
     justify-content: space-between;
-    color: white;
     padding: 0 60px 0 60px;
 }
 
 .main {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     text-align: center;
     margin: auto;
-    width: auto;
-    color: white;
+    width: 50%;
+    flex-direction: column;
+    align-items: center;
 
 }
