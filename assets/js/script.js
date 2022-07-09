@@ -1,13 +1,12 @@
 var startButton = document.getElementById("start-btn")
 var startQuiz = document.getElementById("start")
 var question = document.getElementById("quizquestion")
-var hscores = document.getElementById("highscores")
+var highscore = document.getElementById("highscores")
 var timeEl = document.getElementById("time")
 var gntQ = document.getElementById("q-text")
 var answerBtn = document.getElementById("answers")
-//var time = quizQuestions.length * 15;
 var timerId;
-
+var qIndex = 0;
 
 var quizQuestions = [
     {
@@ -56,13 +55,8 @@ var quizQuestions = [
         correct: "concat",
     },
 ];
+var time = quizQuestions.length * 15;
 console.log(quizQuestions.length);
-// start game set timer and score
-// generate question
-// generate option buttons
-// loop through options.
-
-
 //start button
 function startGame() {
 
@@ -77,17 +71,38 @@ function startGame() {
 
 //
 function setNextQuest() {
-    var pregunta = startQuiz;
-    pregunta.textContent = quizQuestions;
-    startButton.style.display = "none";
-    question.setAttribute("class", "block");
-    gntQ.textContent = "select question from array";
-    selectAnswer();
-
+    //var representing the object
+    var pregunta = quizQuestions[qIndex];
+    // question
+    gntQ.textContent = pregunta.question;
+    answerBtn.innerHTML = '';
+   
+    for (let i = 0; i < pregunta.answers.length; i++) {
+        const answer = pregunta.answers[i];
+        var qButton = document.createElement("button");
+        qButton.setAttribute("class", "answer");
+        qButton.setAttribute("value", answer);
+        qButton.textContent = i + 1 + '. ' + answer;
+        answerBtn.appendChild(qButton);
 }
-//
-function selectAnswer() {
-    console.log("test")
+}
+
+
+
+
+
+
+function selectAnswer(event) {
+    var button2 = event.target;
+    if (!button2.matches(".answer")){
+        return 
+    }
+    if (!button2.matches()) {
+        
+    }
+
+    console.log(button2);
+    
 
 }
 
