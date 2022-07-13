@@ -21,27 +21,27 @@ var quizQuestions = [
     {
         question: "Please describe the most important advantage of using JavaScript.",
         answers: [ "show images","Enhanced interactivity", "larger paragraghs", ],
-        correct: "concat",
+        correct: "Enhanced interactivity",
     },
     {
         question: "Please select 1 JavaScript data types.",
         answers: [ "height","font color","Undefined",],
-        correct: "concat",
+        correct: "Undefined",
     },
     {
         question: "In how many ways can you create an array in JS",
         answers: ["3","any","2"],
-        correct: "concat",
+        correct: "3",
     },
     {
         question: "Inside which HTML element do we put the JavaScript?",
         answers: ["<javascript>", "<script>", "<js>",],
-        correct: "concat",
+        correct: "<script>",
     },
 ];
 
 
-var time = quizQuestions.length * 15;
+var time = quizQuestions.length * 10;
 
 
 
@@ -84,12 +84,14 @@ function selectAnswer(event) {
     if(this.value === quizQuestions[qIndex].correct){
         console.log("corret!");
     }else{
+        time -= 10;
         console.log("Incorrect!");
-    };
+    }
     
-    setNextQuest;
+    qIndex++;
+    setNextQuest();
+  
 }
-
 function timer() {
     time--;
     timeEl.textContent = time;
