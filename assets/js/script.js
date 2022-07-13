@@ -41,7 +41,7 @@ var quizQuestions = [
 ];
 
 
-var time = quizQuestions.length * 10;
+var time = quizQuestions.length * 2;
 
 
 
@@ -87,6 +87,10 @@ function selectAnswer(event) {
         time -= 10;
         console.log("Incorrect!");
     }
+
+    if (time < 0) {
+        endGame();
+    }
     
     qIndex++;
     setNextQuest();
@@ -104,6 +108,19 @@ function timer() {
 }
 
 function endGame() {
+    clearInterval(timerId);
+    //hide questions div
+    question.classList.add("hide");
+
+    //display score
+    highscore.removeAttribute('class');
+    highscore.textContent = "Score " + time;
+    var btnScore = document.createElement("button");
+    btnScore.setAttribute("class", "score");
+    btnScore.setAttribute("id","submit");
+    btnScore.textContent = "Submit";
+    highscore.appendChild(btnScore);
+    
 
 }
 startButton.addEventListener("click", startGame,)
