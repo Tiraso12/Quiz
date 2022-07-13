@@ -1,3 +1,4 @@
+//Dom Elements
 var startButton = document.getElementById("start-btn")
 var startQuiz = document.getElementById("start")
 var question = document.getElementById("quizquestion")
@@ -5,58 +6,45 @@ var highscore = document.getElementById("highscores")
 var timeEl = document.getElementById("time")
 var gntQ = document.getElementById("q-text")
 var answerBtn = document.getElementById("answers")
+
+//var for time and indexes
+
 var timerId;
 var qIndex = 0;
 
 var quizQuestions = [
     {
         question: "Could you name some built-in methods in JavaScript?",
-        answers: [
-            "concat",
-            "font color",
-            "Rich interfaces"
-        ],
+        answers: [ "concat","font color","Rich interfaces" ],
         correct: "concat",
     },
     {
         question: "Please describe the most important advantage of using JavaScript.",
-        answers: [
-            "show images",
-            "Enhanced interactivity",
-            "larger paragraghs",
-        ],
+        answers: [ "show images","Enhanced interactivity", "larger paragraghs", ],
         correct: "concat",
     },
     {
         question: "Please select 1 JavaScript data types.",
-        answers: [
-            "height",
-            "font color",
-            "Undefined",
-        ],
+        answers: [ "height","font color","Undefined",],
         correct: "concat",
     },
     {
         question: "In how many ways can you create an array in JS",
-        answers: [
-            "3",
-            "any",
-            "2",
-        ],
+        answers: ["3","any","2"],
         correct: "concat",
     },
     {
         question: "Inside which HTML element do we put the JavaScript?",
-        answers: [
-            "<javascript>",
-            "<script>",
-            "<js>",
-        ],
+        answers: ["<javascript>", "<script>", "<js>",],
         correct: "concat",
     },
 ];
+
+
 var time = quizQuestions.length * 15;
-console.log(quizQuestions.length);
+
+
+
 //start button
 function startGame() {
 
@@ -71,10 +59,12 @@ function startGame() {
 
 //
 function setNextQuest() {
+    
     //var representing the object
     var pregunta = quizQuestions[qIndex];
     // question
     gntQ.textContent = pregunta.question;
+    
     answerBtn.innerHTML = '';
    
     for (let i = 0; i < pregunta.answers.length; i++) {
@@ -83,27 +73,21 @@ function setNextQuest() {
         qButton.setAttribute("class", "answer");
         qButton.setAttribute("value", answer);
         qButton.textContent = i + 1 + '. ' + answer;
-        answerBtn.appendChild(qButton);
-}
-}
-
-
-
-
-
+        qButton.onclick = selectAnswer
+        answerBtn.appendChild(qButton);     
+       
+};
+};
 
 function selectAnswer(event) {
-    var button2 = event.target;
-    if (!button2.matches(".answer")){
-        return 
-    }
-    if (!button2.matches()) {
-        
-    }
-
-    console.log(button2);
+    var btnPress = event.target;
+    if(this.value === quizQuestions[qIndex].correct){
+        console.log("corret!");
+    }else{
+        console.log("Incorrect!");
+    };
     
-
+    setNextQuest;
 }
 
 function timer() {
@@ -121,6 +105,7 @@ function endGame() {
 
 }
 startButton.addEventListener("click", startGame,)
+
 
 
 //function 1 hide div
