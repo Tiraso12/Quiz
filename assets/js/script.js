@@ -7,31 +7,34 @@ var timeEl = document.getElementById("time")
 var gntQ = document.getElementById("q-text")
 var answerBtn = document.getElementById("answers")
 var rightOrWrong = document.getElementById("right-wrong")
+var submitEl = document.getElementById("submit")
+
 
 //var for time and indexes
 
 var timerId;
 var qIndex = 0;
 
+
 var quizQuestions = [
     {
         question: "Could you name some built-in methods in JavaScript?",
-        answers: [ "concat","font color","Rich interfaces" ],
+        answers: ["concat", "font color", "Rich interfaces"],
         correct: "concat",
     },
     {
         question: "Please describe the most important advantage of using JavaScript.",
-        answers: [ "show images","Enhanced interactivity", "larger paragraghs", ],
+        answers: ["show images", "Enhanced interactivity", "larger paragraghs",],
         correct: "Enhanced interactivity",
     },
     {
         question: "Please select 1 JavaScript data types.",
-        answers: [ "height","font color","Undefined",],
+        answers: ["height", "font color", "Undefined",],
         correct: "Undefined",
     },
     {
         question: "In how many ways can you create an array in JS",
-        answers: ["3","any","2"],
+        answers: ["3", "any", "2"],
         correct: "3",
     },
     {
@@ -43,6 +46,7 @@ var quizQuestions = [
 
 
 var time = quizQuestions.length * 12;
+
 
 
 
@@ -60,14 +64,14 @@ function startGame() {
 
 //
 function setNextQuest() {
-    
+
     //var representing the object
     var pregunta = quizQuestions[qIndex];
     // question
     gntQ.textContent = pregunta.question;
-    
+
     answerBtn.innerHTML = '';
-   
+
     for (let i = 0; i < pregunta.answers.length; i++) {
         const answer = pregunta.answers[i];
         var qButton = document.createElement("button");
@@ -75,28 +79,35 @@ function setNextQuest() {
         qButton.setAttribute("value", answer);
         qButton.textContent = i + 1 + '. ' + answer;
         qButton.onclick = selectAnswer
-        answerBtn.appendChild(qButton);     
-       
-};
+        answerBtn.appendChild(qButton);
+
+    };
 };
 
 function selectAnswer(event) {
     var btnPress = event.target;
-    if(this.value === quizQuestions[qIndex].correct){
+    if (!btnPress.matches(".answer")) {
+        return;
+    }
+    if (btnPress.value === quizQuestions[qIndex].correct) {
         rightOrWrong.textContent = "RIGHT!"
-    }else{
+    } else {
         rightOrWrong.textContent = "WRONG!"
         time -= 10;
-        console.log("Incorrect!");
+        timeEl.textContent = time;
     }
 
     if (time < 0) {
         endGame();
     }
-    
+    // if (the current question index equals the length of your questions) then end your quiz, otherwise, move onto the next question.
+
     qIndex++;
-    setNextQuest();
-  
+    if (qIndex === quizQuestions.length || time <= 0) {
+        endGame();
+    } else {
+        setNextQuest();
+    }
 }
 function timer() {
     time--;
@@ -111,21 +122,43 @@ function timer() {
 
 function endGame() {
     clearInterval(timerId);
-    //hide questions div
-    question.classList.add("hide");
 
     //display score
     highscore.removeAttribute('class');
-    highscore.textContent = "Score" + time;
-    var btnScore = document.createElement("button");
-    btnScore.setAttribute("class", "score");
-    btnScore.setAttribute("id","submit");
-    btnScore.textContent = "Submit";
-    highscore.appendChild(btnScore);
-    
+
+    var score = document.getElementById("score");
+    score.textContent = time;
+
+    //hide questions div
+    question.classList.add("hide");
 
 }
-startButton.addEventListener("click", startGame,)
+
+function saveHighScore() {
+    //capture the value and trim the input.
+    var initialEl = document.querySelector("#initials");
+    var initials = initialEl.value.trim();
+    //clear the input when button is click.
+    if (initials !== '') {
+        var highscores = JSON.parse(localStorage.getItem("highscores")) || [];
+        var data = {
+            score: time,
+            initials: initials,
+        };
+        highscores.push(data);
+        
+        localStorage.setItem("highscore", highscores);
+    };
+
+    displayHighscore();
+
+}
+
+function displayHighscore(){
+
+};
+submitEl.addEventListener("click", saveHighScore);
+startButton.addEventListener("click", startGame);
 
 
 
