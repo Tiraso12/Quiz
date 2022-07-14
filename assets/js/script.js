@@ -6,6 +6,7 @@ var highscore = document.getElementById("highscores")
 var timeEl = document.getElementById("time")
 var gntQ = document.getElementById("q-text")
 var answerBtn = document.getElementById("answers")
+var rightOrWrong = document.getElementById("right-wrong")
 
 //var for time and indexes
 
@@ -41,7 +42,7 @@ var quizQuestions = [
 ];
 
 
-var time = quizQuestions.length * 2;
+var time = quizQuestions.length * 12;
 
 
 
@@ -82,8 +83,9 @@ function setNextQuest() {
 function selectAnswer(event) {
     var btnPress = event.target;
     if(this.value === quizQuestions[qIndex].correct){
-        console.log("corret!");
+        rightOrWrong.textContent = "RIGHT!"
     }else{
+        rightOrWrong.textContent = "WRONG!"
         time -= 10;
         console.log("Incorrect!");
     }
@@ -114,7 +116,7 @@ function endGame() {
 
     //display score
     highscore.removeAttribute('class');
-    highscore.textContent = "Score " + time;
+    highscore.textContent = "Score" + time;
     var btnScore = document.createElement("button");
     btnScore.setAttribute("class", "score");
     btnScore.setAttribute("id","submit");
