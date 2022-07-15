@@ -155,8 +155,10 @@ function saveHighScore() {
 }
 
 function displayHighscore(){
-
+    
 };
+
+
 submitEl.addEventListener("click", saveHighScore);
 startButton.addEventListener("click", startGame);
 
