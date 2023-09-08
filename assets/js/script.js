@@ -82,7 +82,7 @@ function setNextQuest(queIndex) {
     itemC.textContent = 'c) ' + c
 }
 
-function selectAnswer() {
+function checkAnswer() {
 }
 
 startButtonEl.addEventListener("click", () =>
