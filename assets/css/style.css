@@ -68,3 +68,17 @@ html {
   background-color: #fbdeb0;
   border: 1px solid #f28482;
 }
+
+.options {
+  padding: 1.6rem;
+  border: 1px solid #84a59d;
+}
+
+.opt-list {
+  text-decoration: none;
+  list-style: none;
+}
+.opt-item {
+  font-size: 1.8rem;
+  font-weight: 500;
+}

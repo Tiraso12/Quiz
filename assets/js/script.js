@@ -1,9 +1,16 @@
-var startButtonEl = document.querySelector("#start-btn");
-var questionEl = document.querySelector("#questions");
-var scoreEl = document.querySelector("score");
-var timeEl = document.querySelector("time");
+let startButtonEl = document.querySelector("#start-btn");
+let questionEl = document.querySelector("#questions");
+let scoreEl = document.querySelector("#score");
+let timeEl = document.querySelector("#time");
+let optionEl = document.querySelector("#options");
+let itemA = document.querySelector("#a");
+let itemB = document.querySelector("#b");
+let itemC = document.querySelector("#c");
 
-var quizQuestions = [
+
+
+
+let quizQuestions = [
     {
         question: "Could you name some built-in methods in JavaScript?",
         answers: {
@@ -41,7 +48,7 @@ var quizQuestions = [
         }
     },
     {
-        question: "Inside which HTML element do we put the JavaScript?",
+        question: "Inside which HTML element do we put the javascript document?",
         answers: {
             a: "<javascript>",
             b: "<script>",
@@ -59,8 +66,8 @@ var quizQuestions = [
 //start button
 let currentQuestion = 0
 function startGame() {
-    var score = 0;
-    var timer = 0;
+    let score = 0;
+    let timer = 0;
     setNextQuest(currentQuestion);
 
 }
@@ -69,9 +76,10 @@ function setNextQuest(queIndex) {
     const questionData = quizQuestions[queIndex];
     questionEl.textContent = questionData.question
     currentQuestion++;
-    console.log(queIndex);
-    startButtonEl.textContent = 'Next';
-
+    let [a, b, c] = Object.values(questionData.answers)
+    itemA.textContent = 'a) ' + a
+    itemB.textContent = 'b) ' + b
+    itemC.textContent = 'c) ' + c
 }
 
 function selectAnswer() {
@@ -79,8 +87,6 @@ function selectAnswer() {
 
 }
 
-startButtonEl.addEventListener("click", function () {
-    if (startButtonEl.textContent === 'Start') {
-        startGame(currentQuestion)
-    } else { setNextQuest(currentQuestion) }
-});
+startButtonEl.addEventListener("click", () =>
+    startButtonEl.textContent === 'Start' ? startGame(currentQuestion) : setNextQuest(currentQuestion)
+);
