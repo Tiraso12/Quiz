@@ -1,49 +1,51 @@
-var startButton = document.querySelector("#start-btn")
-var prueba = document.querySelector("#questions")
+var startButtonEl = document.querySelector("#start-btn");
+var questionEl = document.querySelector("#questions");
+var scoreEl = document.querySelector("score");
+var timeEl = document.querySelector("time");
 
 var quizQuestions = [
     {
-        question1: "Could you name some built-in methods in JavaScript?",
+        question: "Could you name some built-in methods in JavaScript?",
         answers: {
-            a:"concat",
-            b:"font color",
-            c:"Rich interfaces",
+            a: "concat",
+            b: "font color",
+            c: "Rich interfaces",
             correct: "a"
         }
     },
     {
-        question2: "Please describe the most important advantage of using JavaScript.",
+        question: "Please describe the most important advantage of using JavaScript.",
         answers: {
-            a:"show images",
-            b:"Enhanced interactivity",
-            c:"larger paragraghs",
+            a: "show images",
+            b: "Enhanced interactivity",
+            c: "larger paragraghs",
             correct: "b"
         }
     },
     {
-        question3: "Please select 1 JavaScript data types.",
+        question: "Please select 1 JavaScript data type.",
         answers: {
-            a:"height",
-            b:"font color",
-            c:"Undefined",
+            a: "height",
+            b: "font color",
+            c: "Undefined",
             correct: "c"
         }
     },
     {
-        question4: "In how many ways can you create an array in JS",
+        question: "In how many ways can you create an array in JS",
         answers: {
-            a:"3",
-            b:"any",
-            c:"2",
+            a: "3",
+            b: "any",
+            c: "2",
             correct: "3"
         }
     },
     {
-        question5: "Inside which HTML element do we put the JavaScript?",
+        question: "Inside which HTML element do we put the JavaScript?",
         answers: {
-            a:"<javascript>",
-            b:"<script>",
-            c:"<js>",
+            a: "<javascript>",
+            b: "<script>",
+            c: "<js>",
             correct: "b"
         }
     }
@@ -54,26 +56,32 @@ var quizQuestions = [
 // generate option buttons
 // loop through options.
 
-
 //start button
-function startGame(){
-var score = 0;
-var timer = 0;
-setNextQuest();
+let currentQuestion = 0
+function startGame() {
+    var score = 0;
+    var timer = 0;
+    setNextQuest(currentQuestion);
 
 }
 
+function setNextQuest(queIndex) {
+    const questionData = quizQuestions[queIndex];
+    questionEl.textContent = questionData.question
+    currentQuestion++;
+    queIndex++;
+    console.log(queIndex);
+    startButtonEl.textContent = 'Next';
 
-function setNextQuest(){
-    var pregunta = prueba;
-    pregunta.textContent = quizQuestions
+}
 
-    console.log(prueba);
+function selectAnswer() {
+
 
 }
 
-function selectAnswer(){
-
-
-}
-startButton.addEventListener("click", startGame,)
+startButtonEl.addEventListener("click", function () {
+    if (startButtonEl.textContent === 'Start') {
+        startGame(currentQuestion)
+    } else { setNextQuest(currentQuestion) }
+});
