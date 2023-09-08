@@ -69,7 +69,6 @@ function setNextQuest(queIndex) {
     const questionData = quizQuestions[queIndex];
     questionEl.textContent = questionData.question
     currentQuestion++;
-    queIndex++;
     console.log(queIndex);
     startButtonEl.textContent = 'Next';
 
