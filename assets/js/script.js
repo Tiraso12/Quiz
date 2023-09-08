@@ -78,7 +78,7 @@ function setNextQuest() {
         qButton.setAttribute("class", "answer");
         qButton.setAttribute("value", answer);
         qButton.textContent = i + 1 + '. ' + answer;
-        qButton.onclick = selectAnswer
+        qButton.onclick = selectAnswer;
         answerBtn.appendChild(qButton);
 
     };
@@ -146,7 +146,7 @@ function saveHighScore() {
             initials: initials,
         };
         highscores.push(data);
-        
+
         localStorage.setItem("highscore", highscores);
     };
 
@@ -154,8 +154,8 @@ function saveHighScore() {
 
 }
 
-function displayHighscore(){
-    
+function displayHighscore() {
+
 };
 
 
