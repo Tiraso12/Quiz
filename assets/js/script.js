@@ -83,8 +83,6 @@ function setNextQuest(queIndex) {
 }
 
 function selectAnswer() {
-
-
 }
 
 startButtonEl.addEventListener("click", () =>
