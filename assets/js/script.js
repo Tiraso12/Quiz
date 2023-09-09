@@ -63,25 +63,19 @@ function startGame() {
 }
 
 function setNextQuest() {
-
-    //var representing the object
-    var pregunta = quizQuestions[qIndex];
-    // question
+    const pregunta = quizQuestions[qIndex];
     gntQ.textContent = pregunta.question;
-
     answerBtn.innerHTML = '';
 
-    for (let i = 0; i < pregunta.answers.length; i++) {
-        const answer = pregunta.answers[i];
-        var qButton = document.createElement("button");
-        qButton.setAttribute("class", "answer");
-        qButton.setAttribute("value", answer);
-        qButton.textContent = i + 1 + '. ' + answer;
-        qButton.onclick = selectAnswer;
+    pregunta.answers.forEach((answer, i) => {
+        const qButton = document.createElement("button");
+        qButton.className = "answer start-btn";
+        qButton.value = answer;
+        qButton.textContent = `${i + 1}. ${answer}`;
+        qButton.addEventListener("click", selectAnswer);
         answerBtn.appendChild(qButton);
-
-    };
-};
+    });
+}
 
 function selectAnswer(event) {
     var btnPress = event.target;
@@ -170,3 +164,33 @@ startButton.addEventListener("click", startGame);
 //function logic
 
 // function end game (end game, stop timer, condition " less than 0 force it to 0 define score as object")
+
+function setNextQuest() {
+    // Get the current question object from an array (likely 'quizQuestions')
+    var pregunta = quizQuestions[qIndex];
+
+    // Set the text content of an HTML element (likely 'gntQ') to display the question
+    gntQ.textContent = pregunta.question;
+
+    // Clear any previous answer buttons or choices
+    answerBtn.innerHTML = '';
+
+    // Loop through the answer choices for the current question
+    for (let i = 0; i < pregunta.answers.length; i++) {
+        const answer = pregunta.answers[i];
+
+        // Create a new button element
+        var qButton = document.createElement("button");
+
+        // Set attributes for the button
+        qButton.setAttribute("class", "answer start-btn"); // Likely for styling
+        qButton.setAttribute("value", answer); // Set the value attribute for the answer
+        qButton.textContent = i + 1 + '. ' + answer; // Display answer choice text
+
+        // Assign an onclick event handler to the button (likely to handle user selection)
+        qButton.onclick = selectAnswer;
+
+        // Append the button to an HTML container element (likely 'answerBtn')
+        answerBtn.appendChild(qButton);
+    }
+};
