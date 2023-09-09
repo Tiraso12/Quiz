@@ -21,7 +21,7 @@ html {
   border: 1px solid #333;
 }
 .title {
-  font-size: 2rem;
+  font-size: 3.6rem;
 }
 .container p {
   font-size: 1.2rem;
@@ -41,6 +41,11 @@ html {
   border: 1px solid #333;
   margin: 1.6rem;
   text-align: center;
+}
+
+.container p {
+  font-size: 1.8rem;
+  line-height: 1.4;
 }
 
 .block {
