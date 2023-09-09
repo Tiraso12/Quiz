@@ -62,7 +62,6 @@ function startGame() {
 
 }
 
-//
 function setNextQuest() {
 
     //var representing the object

@@ -31,7 +31,6 @@ html {
   display: flex;
   flex-wrap: wrap;
   text-align: center;
-  /* width: 50%; */
   flex-direction: column;
   align-items: center;
   border: 1px solid #333;
@@ -77,4 +76,9 @@ html {
 .r-w {
   font-size: 1.2rem;
   margin-top: 1.2rem;
+} */
+
+/* Reset some default styles
+.hide {
+  display: none;
 }
