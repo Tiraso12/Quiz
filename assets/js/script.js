@@ -3,10 +3,12 @@ const startButtonEl = document.querySelector(".start-btn");
 const titleEl = document.querySelector('.title');
 const questionEl = document.querySelector('.question');
 const containerAns = document.querySelector('.container-ans');
+const timeEl = document.querySelector('#time');
 
 
 //var for time and indexes
 
+let qIndex = 0;
 let timerId;
 
 
@@ -34,41 +36,59 @@ var quizQuestions = [
     {
         question: "Inside which HTML element do we put the JavaScript?",
         answers: ['javascript', "script", "js",],
-        correct: "<script>",
+        correct: "script",
     },
 ];
 
 
-var time = quizQuestions.length * 12;
+let time = quizQuestions.length * 15;
 
+
+
+function timer() {
+
+    setInterval(() => {
+        timeEl.textContent = time;
+        --time;
+    }, 1000);
+}
 
 const startQuiz = function () {
-
+    timeEl.textContent = time;
+    timer()
     generateQuestion()
 }
 
-let qIndex = 0;
 function generateQuestion() {
-
-    const html = `<button class="ans-btn">try to answer as fast as you can!</button>`
-
     containerAns.innerHTML = ""
     if (qIndex < quizQuestions.length) {
         titleEl.textContent = quizQuestions[qIndex].question;
         const containerEl = document.querySelector('.container-ans');
         quizQuestions[qIndex].answers.forEach(que => {
-            const html = `<button class="ans-btn">${que}</button>`
+            const html = `<button class="ans-btn" value="${que}">${que}</button>`
             containerEl.insertAdjacentHTML('afterbegin', html);
         })
-        qIndex++;
     } else {
         alert('Game over')
     }
+};
+function checkAns() {
+    let btnPressed = event.target;
+    if (!btnPressed.value === quizQuestions[qIndex].correct) {
+        return;
+    }
+    if (btnPressed.value === quizQuestions[qIndex].correct) {
+        generateQuestion();
+    }
+    else {
+        console.log('Wrong');
+    }
+    qIndex++
+    generateQuestion()
 }
 
-
+containerAns.addEventListener('click', checkAns);
 startButtonEl.addEventListener('click', startQuiz)
-
 
 
 

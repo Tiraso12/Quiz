@@ -10,7 +10,7 @@ html {
 }
 
 .hide {
-  display: none;
+  opacity: 0;
 }
 
 .header {
