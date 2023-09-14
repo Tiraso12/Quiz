@@ -13,63 +13,46 @@ html {
   display: none;
 }
 
-.nav {
+.header {
   display: flex;
   justify-content: space-between;
-  padding: 9.6rem;
+  padding: 4.6rem;
   font-size: 2.4rem;
-  border: 1px solid #333;
-  background-color: #fad7da;
   color: #333;
-}
-.title {
-  font-size: 3.6rem;
-}
-.container p {
-  font-size: 1.2rem;
 }
 
 .main {
-  display: flex;
-  flex-wrap: wrap;
-  text-align: center;
-  flex-direction: column;
-  align-items: center;
-  border: 1px solid #333;
-  background-color: #fad7da;
+  height: 60vh;
 }
 
-.hero-section {
-  background-color: #f1faee;
-}
 .container {
-  padding: 4.8rem;
-  border: 1px solid #333;
-  margin: 9.6rem 0;
-  text-align: center;
-  background-color: #fad7da;
-  color: #333;
-  border-radius: 11px;
-}
-
-.container p {
-  font-size: 1.8rem;
-  line-height: 1.4;
-}
-
-.block {
   display: flex;
-  flex-wrap: wrap;
-  text-align: center;
-  margin: auto;
-  width: 50%;
   flex-direction: column;
-  align-items: center;
+  gap: 1.2rem;
+  padding: 4.6rem;
+  border: 2px solid black;
+  width: 60%;
+  height: 70%;
+  margin: auto;
+}
+.title {
+  font-size: 2.4rem;
+  padding: 1.8rem;
+  width: 100%;
+  text-align: center;
 }
 
-.questions {
-  margin-bottom: 1.8rem;
-  font-size: 2rem;
+.container-ans {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  text-align: center;
+  gap: 0.6rem;
+}
+
+.container p a {
+  font-size: 1.8rem;
+  text-decoration: none;
 }
 
 .answer {
@@ -88,10 +71,25 @@ html {
   color: #fff;
 }
 
-.r-w {
-  font-size: 1.2rem;
-  margin-top: 1.2rem;
+.ans-btn {
+  padding: 0.8rem;
 }
-/* .hide {
-  display: none;
-} */
+
+.ans-btn {
+  appearance: none;
+  background-color: #fafbfc;
+  border-radius: 6px;
+  box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0,
+    rgba(255, 255, 255, 0.25) 0 1px 0 inset;
+  color: #24292e;
+  cursor: pointer;
+  display: inline-block;
+
+  transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
+}
+
+.ans-btn:hover {
+  background-color: #f3f4f6;
+  text-decoration: none;
+  transition-duration: 0.1s;
+}

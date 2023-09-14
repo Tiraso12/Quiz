@@ -1,19 +1,13 @@
 //Dom Elements
-var startButton = document.getElementById("start-btn")
-var startQuiz = document.getElementById("start")
-var question = document.getElementById("quizquestion")
-var highscore = document.getElementById("highscores")
-var timeEl = document.getElementById("time")
-var gntQ = document.getElementById("q-text")
-var answerBtn = document.getElementById("answers")
-var rightOrWrong = document.getElementById("right-wrong")
-var submitEl = document.getElementById("submit")
+const startButtonEl = document.querySelector(".start-btn");
+const titleEl = document.querySelector('.title');
+const questionEl = document.querySelector('.question');
+const containerAns = document.querySelector('.container-ans');
 
 
 //var for time and indexes
 
-var timerId;
-var qIndex = 0;
+let timerId;
 
 
 var quizQuestions = [
@@ -39,7 +33,7 @@ var quizQuestions = [
     },
     {
         question: "Inside which HTML element do we put the JavaScript?",
-        answers: ["<javascript>", "<script>", "<js>",],
+        answers: ['javascript', "script", "js",],
         correct: "<script>",
     },
 ];
@@ -48,112 +42,140 @@ var quizQuestions = [
 var time = quizQuestions.length * 12;
 
 
+const startQuiz = function () {
+
+    generateQuestion()
+}
+
+let qIndex = 0;
+function generateQuestion() {
+
+    const html = `<button class="ans-btn">try to answer as fast as you can!</button>`
+
+    containerAns.innerHTML = ""
+    if (qIndex < quizQuestions.length) {
+        titleEl.textContent = quizQuestions[qIndex].question;
+        const containerEl = document.querySelector('.container-ans');
+        quizQuestions[qIndex].answers.forEach(que => {
+            const html = `<button class="ans-btn">${que}</button>`
+            containerEl.insertAdjacentHTML('afterbegin', html);
+        })
+        qIndex++;
+    } else {
+        alert('Game over')
+    }
+}
+
+
+startButtonEl.addEventListener('click', startQuiz)
+
+
 
 
 //start button
-function startGame() {
+// function startGame() {
 
-    startQuiz.setAttribute("class", 'hide');
-    question.removeAttribute("class");
-    timerId = setInterval(timer, 1000);
-    timeEl.textContent = time;
-    setNextQuest();
-
-
-}
-
-function setNextQuest() {
-    const pregunta = quizQuestions[qIndex];
-    gntQ.textContent = pregunta.question;
-    answerBtn.innerHTML = '';
-
-    pregunta.answers.forEach((answer, i) => {
-        const qButton = document.createElement("button");
-        qButton.className = "answer start-btn";
-        qButton.value = answer;
-        qButton.textContent = `${i + 1}. ${answer}`;
-        qButton.addEventListener("click", selectAnswer);
-        answerBtn.appendChild(qButton);
-    });
-}
-
-function selectAnswer(event) {
-    var btnPress = event.target;
-    if (!btnPress.matches(".answer")) {
-        return;
-    }
-    if (btnPress.value === quizQuestions[qIndex].correct) {
-        rightOrWrong.textContent = "RIGHT!"
-    } else {
-        rightOrWrong.textContent = "WRONG!"
-        time -= 10;
-        timeEl.textContent = time;
-    }
-
-    if (time < 0) {
-        endGame();
-    }
-    // if (the current question index equals the length of your questions) then end your quiz, otherwise, move onto the next question.
-
-    qIndex++;
-    if (qIndex === quizQuestions.length || time <= 0) {
-        endGame();
-    } else {
-        setNextQuest();
-    }
-}
-function timer() {
-    time--;
-    timeEl.textContent = time;
-
-    if (time <= 0) {
-
-        endGame();
-    }
-
-}
-
-function endGame() {
-    clearInterval(timerId);
-
-    //display score
-    highscore.removeAttribute('class');
-
-    var score = document.getElementById("score");
-    score.textContent = time;
-
-    //hide questions div
-    question.classList.add("hide");
-
-}
-
-function saveHighScore() {
-    //capture the value and trim the input.
-    var initialEl = document.querySelector("#initials");
-    var initials = initialEl.value.trim();
-    //clear the input when button is click.
-    if (initials !== '') {
-        var highscores = JSON.parse(localStorage.getItem("highscores")) || [];
-        var data = {
-            score: time,
-            initials: initials,
-        };
-        highscores.push(data);
-
-        localStorage.setItem("highscore", highscores);
-    };
-
-    displayHighscore();
-
-}
-
-function displayHighscore() {
-
-};
+//     startQuiz.setAttribute("class", 'hide');
+//     question.removeAttribute("class");
+//     timerId = setInterval(timer, 1000);
+//     timeEl.textContent = time;
+//     setNextQuest();
 
 
-submitEl.addEventListener("click", saveHighScore);
-startButton.addEventListener("click", startGame);
+// }
+
+// function setNextQuest() {
+//     const pregunta = quizQuestions[qIndex];
+//     gntQ.textContent = pregunta.question;
+//     answerBtn.innerHTML = '';
+
+//     pregunta.answers.forEach((answer, i) => {
+//         const qButton = document.createElement("button");
+//         qButton.className = "answer start-btn";
+//         qButton.value = answer;
+//         qButton.textContent = `${i + 1}. ${answer}`;
+//         qButton.addEventListener("click", selectAnswer);
+//         answerBtn.appendChild(qButton);
+//     });
+// }
+
+// function selectAnswer(event) {
+//     var btnPress = event.target;
+//     if (!btnPress.matches(".answer")) {
+//         return;
+//     }
+//     if (btnPress.value === quizQuestions[qIndex].correct) {
+//         rightOrWrong.textContent = "RIGHT!"
+//     } else {
+//         rightOrWrong.textContent = "WRONG!"
+//         time -= 10;
+//         timeEl.textContent = time;
+//     }
+
+//     if (time < 0) {
+//         endGame();
+//     }
+//     // if (the current question index equals the length of your questions) then end your quiz, otherwise, move onto the next question.
+
+//     qIndex++;
+//     if (qIndex === quizQuestions.length || time <= 0) {
+//         endGame();
+//     } else {
+//         setNextQuest();
+//     }
+// }
+// function timer() {
+//     time--;
+//     timeEl.textContent = time;
+
+//     // if (time <= 0) {
+
+//     //     endGame();
+//     // }
+
+// }
+
+// function endGame() {
+//     clearInterval(timerId);
+
+//     //display score
+//     highscore.removeAttribute('class');
+
+//     var score = document.getElementById("score");
+//     score.textContent = time;
+
+//     //hide questions div
+//     question.classList.add("hide");
+
+// }
+
+// function saveHighScore() {
+//     //capture the value and trim the input.
+//     var initialEl = document.querySelector("#initials");
+//     var initials = initialEl.value.trim();
+//     //clear the input when button is click.
+//     if (initials !== '') {
+//         var highscores = JSON.parse(localStorage.getItem("highscores")) || [];
+//         var data = {
+//             score: time,
+//             initials: initials,
+//         };
+//         highscores.push(data);
+
+//         localStorage.setItem("highscore", highscores);
+//     };
+
+//     displayHighscore();
+
+// }
+
+// function displayHighscore() {
+
+// };
+
+
+// submitEl.addEventListener("click", saveHighScore);
+// startButton.addEventListener("click", startGame);
 
 
 
@@ -165,32 +187,32 @@ startButton.addEventListener("click", startGame);
 
 // function end game (end game, stop timer, condition " less than 0 force it to 0 define score as object")
 
-function setNextQuest() {
-    // Get the current question object from an array (likely 'quizQuestions')
-    var pregunta = quizQuestions[qIndex];
+// function setNextQuest() {
+//     // Get the current question object from an array (likely 'quizQuestions')
+//     var pregunta = quizQuestions[qIndex];
 
-    // Set the text content of an HTML element (likely 'gntQ') to display the question
-    gntQ.textContent = pregunta.question;
+//     // Set the text content of an HTML element (likely 'gntQ') to display the question
+//     gntQ.textContent = pregunta.question;
 
-    // Clear any previous answer buttons or choices
-    answerBtn.innerHTML = '';
+//     // Clear any previous answer buttons or choices
+//     answerBtn.innerHTML = '';
 
-    // Loop through the answer choices for the current question
-    for (let i = 0; i < pregunta.answers.length; i++) {
-        const answer = pregunta.answers[i];
+//     // Loop through the answer choices for the current question
+//     for (let i = 0; i < pregunta.answers.length; i++) {
+//         const answer = pregunta.answers[i];
 
-        // Create a new button element
-        var qButton = document.createElement("button");
+//         // Create a new button element
+//         var qButton = document.createElement("button");
 
-        // Set attributes for the button
-        qButton.setAttribute("class", "answer start-btn"); // Likely for styling
-        qButton.setAttribute("value", answer); // Set the value attribute for the answer
-        qButton.textContent = i + 1 + '. ' + answer; // Display answer choice text
+//         // Set attributes for the button
+//         qButton.setAttribute("class", "answer start-btn"); // Likely for styling
+//         qButton.setAttribute("value", answer); // Set the value attribute for the answer
+//         qButton.textContent = i + 1 + '. ' + answer; // Display answer choice text
 
-        // Assign an onclick event handler to the button (likely to handle user selection)
-        qButton.onclick = selectAnswer;
+//         // Assign an onclick event handler to the button (likely to handle user selection)
+//         qButton.onclick = selectAnswer;
 
-        // Append the button to an HTML container element (likely 'answerBtn')
-        answerBtn.appendChild(qButton);
-    }
-};
+//         // Append the button to an HTML container element (likely 'answerBtn')
+//         answerBtn.appendChild(qButton);
+//     }
+// };
