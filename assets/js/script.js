@@ -1,8 +1,8 @@
 //Dom Elements
-const startButtonEl = document.querySelector(".start-btn");
+const startButtonEl = document.querySelector(".btn");
 const titleEl = document.querySelector('.title');
 const questionEl = document.querySelector('.question');
-const containerAns = document.querySelector('.container-ans');
+const containerAns = document.querySelector('.ans-list');
 const timeEl = document.querySelector('#time');
 
 
@@ -45,13 +45,16 @@ let time = quizQuestions.length * 15;
 
 
 
-function timer() {
-
-    setInterval(() => {
+const timer = () => {
+    timerId = setInterval(() => {
         timeEl.textContent = time;
-        --time;
+        if (time <= 0) {
+            clearInterval(timerId);
+        } else {
+            --time;
+        }
     }, 1000);
-}
+};
 
 const startQuiz = function () {
     timeEl.textContent = time;
@@ -65,8 +68,8 @@ function generateQuestion() {
         titleEl.textContent = quizQuestions[qIndex].question;
         const containerEl = document.querySelector('.container-ans');
         quizQuestions[qIndex].answers.forEach(que => {
-            const html = `<button class="ans-btn" value="${que}">${que}</button>`
-            containerEl.insertAdjacentHTML('afterbegin', html);
+            const html = `<li value='${que}'>${que}</li>`;
+            containerAns.insertAdjacentHTML('afterbegin', html);
         })
     } else {
         alert('Game over')
@@ -81,8 +84,11 @@ function checkAns() {
         generateQuestion();
     }
     else {
+        time -= 10;
         console.log('Wrong');
     }
+
+
     qIndex++
     generateQuestion()
 }
