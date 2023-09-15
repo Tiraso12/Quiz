@@ -41,7 +41,7 @@ var quizQuestions = [
 ];
 
 
-let time = quizQuestions.length * 15;
+let time = quizQuestions.length * 2;
 
 
 
@@ -50,6 +50,7 @@ const timer = () => {
         timeEl.textContent = time;
         if (time <= 0) {
             clearInterval(timerId);
+
         } else {
             --time;
         }
@@ -66,7 +67,6 @@ function generateQuestion() {
     containerAns.innerHTML = ""
     if (qIndex < quizQuestions.length) {
         titleEl.textContent = quizQuestions[qIndex].question;
-        const containerEl = document.querySelector('.container-ans');
         quizQuestions[qIndex].answers.forEach(que => {
             const html = `<li value='${que}'>${que}</li>`;
             containerAns.insertAdjacentHTML('afterbegin', html);
@@ -81,10 +81,16 @@ function checkAns() {
         return;
     }
     if (btnPressed.value === quizQuestions[qIndex].correct) {
-        generateQuestion();
-    }
-    else {
-        time -= 10;
+        qIndex++;
+        if (qIndex < quizQuestions.length) {
+            generateQuestion();
+        } else {
+            time -= 10;
+            clearInterval(timerId);
+            alert('Game over')
+            console.log('Wrong');
+        }
+    } else {
         console.log('Wrong');
     }
 

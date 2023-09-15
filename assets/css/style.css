@@ -36,6 +36,7 @@ html {
   padding: 2.4rem;
   margin: 1.2rem auto;
   background-color: #d4f1f4;
+  border-radius: 11px;
 }
 
 .title {
@@ -45,9 +46,17 @@ html {
 }
 
 .ans-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   list-style: none;
   line-height: 1.5;
   font-size: 1.8rem;
+  gap: 1.2rem;
+}
+
+.ans-list li {
+  cursor: pointer;
 }
 
 .btn {
