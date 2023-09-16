@@ -41,11 +41,11 @@ var quizQuestions = [
 ];
 
 
-let time = quizQuestions.length * 15;
+let time = quizQuestions.length * 12;
 
 
 
-function timer() {
+const interval = function timer() {
 
     setInterval(() => {
         timeEl.textContent = time;
@@ -55,7 +55,6 @@ function timer() {
 
 const startQuiz = function () {
     timeEl.textContent = time;
-    timer()
     generateQuestion()
 }
 
@@ -70,9 +69,12 @@ function generateQuestion() {
         })
     } else {
         alert('Game over')
+        clearInterval(interval)
+        timeEl.textContent=0;
     }
 };
 function checkAns() {
+   
     let btnPressed = event.target;
     if (!btnPressed.value === quizQuestions[qIndex].correct) {
         return;
@@ -82,13 +84,36 @@ function checkAns() {
     }
     else {
         console.log('Wrong');
+        time -= 10;
     }
+    if(time <0){
+        time = 0
+        timeEl.textContent= time;
+        clearInterval(interval)
+    }
+    console.log(time);
+
     qIndex++
     generateQuestion()
 }
 
 containerAns.addEventListener('click', checkAns);
-startButtonEl.addEventListener('click', startQuiz)
+startButtonEl.addEventListener('click', function () {
+    if (startButtonEl.textContent === 'Start') {
+        interval();
+        startQuiz();
+        startButtonEl.textContent= 'Skip'
+        return;
+    }
+
+    if (startButtonEl.textContent === 'Skip') {
+        console.log(startButtonEl.textContent);
+        generateQuestion();
+        qIndex++
+        time -= 10;
+    }
+
+})
 
 
 
