@@ -1,19 +1,25 @@
 //Dom Elements
+// const submitBtn = document.querySelector('#submit')
 const startButtonEl = document.querySelector(".btn");
 const titleEl = document.querySelector('.title');
 const questionEl = document.querySelector('.question');
-const containerAns = document.querySelector('.ans-list');
+const ansEl = document.querySelector('.ans-list');
 const timeEl = document.querySelector('#time');
 const timeElClass = document.querySelector('.time');
+const formEl = document.querySelector('.form');
+const container = document.querySelector('.container');
+
 
 
 //var for time and indexes
 
 let qIndex = 0;
 let timerId;
+let score;
 
 
-const quizQuestions = [
+
+const quizObject = [
     {
         question: "Could you name some built-in methods in JavaScript?",
         answers: ["concat", "font color", "Rich interfaces"],
@@ -43,60 +49,65 @@ const quizQuestions = [
 
 
 
-let time = quizQuestions.length * 1;
+let time = quizObject.length * 12;
 
 //////////////////////////////////////
 /////TIMER
 const startTimer = () => {
     const tick = () => {
-        if (time === 0) {
-            clearInterval(timer);
-            endGame()
-        } else {
-            time--;
+        timeEl.textContent = time
+        if (time <= 0 || qIndex >= quizObject.length) {
+            clearInterval(timer)
         }
-        timeEl.textContent = time;
-    }
+        time--
+    };
     tick();
     const timer = setInterval(tick, 1000);
-
 };
 
 //////////////////////////////////////
-/////GENETARE QUESTION
-function generateQuestion() {
-    containerAns.innerHTML = ""
-    if (qIndex < quizQuestions.length) {
-        titleEl.textContent = quizQuestions[qIndex].question;
-        quizQuestions[qIndex].answers.forEach(que => {
-            const html = `<li value='${que}'>${que}</li>`;
-            containerAns.insertAdjacentHTML('afterbegin', html);
-        })
-    } else {
-        alert('Game over')
-        endGame();
+/////GENERATE QUESTION
+
+const genQuestion = function () {
+    if (qIndex < quizObject.length) {
+        const { question: title, answers: options, correct } = quizObject[qIndex]
+        return displayQuiz(title, options, correct)
     }
-};
+    endGame()
+}
+
+//////////////////////////////////////
+/////DISPLAY QUESTION AND OPTIONS
+const displayQuiz = function (question, options) {
+    titleEl.innerHTML = ""
+    ansEl.innerHTML = ""
+    titleEl.textContent = question;
+    const answerEl = options.map(ans => `<li '>${ans}</li>`).join('');
+    ansEl.insertAdjacentHTML('afterbegin', answerEl)
+}
+
+
 
 //////////////////////////////////////
 /////CHECK ANSWER
 
-function checkAns() {
-   
-    let btnPressed = event.target;
-    if (btnPressed.value !== quizQuestions[qIndex].correct) {
+const checkAns = function (e) {
+    const selectedAnswer = e.target.textContent;
+    const correctAnswer = quizObject[qIndex].correct;
+    if (time <= 0) endGame();
+    if (selectedAnswer !== correctAnswer) {
+        console.log('wrong!');
         time -= 10;
         qIndex++
-        generateQuestion()
-        return;
+        genQuestion(quizObject, qIndex)
     }
-    if (btnPressed.value === quizQuestions[qIndex].correct) {
-        qIndex++;
-        if (qIndex < quizQuestions.length) {
-            generateQuestion();
-        } else {
-            endGame();
-        }
+    if (selectedAnswer === correctAnswer) {
+        // if (qIndex >= quizObject.length) {
+        //     endGame();
+        // }
+        console.log('right');
+        qIndex++
+        genQuestion(quizObject, qIndex);
     }
 }
 
@@ -105,44 +116,71 @@ function checkAns() {
 ///// END GAME
 
 function endGame() {
-    clearInterval(timerId);
+    score = time;
+    alert('gameover')
     highscore()
 }
 
 //////////////////////////////////////
 //// HIGH SCORE
 
+
+
 function highscore() {
-    const container = document.querySelector('.container');
     container.innerHTML = ''
-    let highscore;
-    highscore = time;
+    console.log(score);
+    if (score <= 0) {
+        score = 0
+    }
     const html = `
-    <div class="highscore">
-    <h2 class="header"> Game has Ended!</h2>
-    <p class ="p">Your Score: <span id="score">${highscore}</span></p>
-    <form class="form">
-    <label for="">Enter your initials</label>
-    <input type="text" id="initials" max="3" />
-    </form>
-    <button id="submit" class="btn">Submit</button>
-    </div>
-    `
+        <div class="highscore">
+            <h2 class="header"> Game has Ended!</h2>
+            <p class ="p">Your Score: <span id="score">${score}</span></p>
+            <form class="form">
+                 <label for="">Enter your initials</label>
+                <input type="text" id="initials" max="3" />
+            </form>
+        <button id="submit" class="btn">Submit</button>
+        </div>      
+        ` ;
+
     container.insertAdjacentHTML('afterbegin', html);
+
 }
 
-/////////////////////
-//Event Listeners
-containerAns.addEventListener('click', checkAns);
-startButtonEl.addEventListener('click', function () {
-    console.log(event.target.textContent);
-    if (startButtonEl.textContent === "Start") {
-        startButtonEl.textContent = "Skip";
-        startTimer();
-        generateQuestion()
-    } else if (startButtonEl.textContent === 'Skip') {
-        qIndex++;
-        generateQuestion()
+
+///////////////////
+// Save highscore
+function saveHighscore() {
+
+    const formInput = document.querySelector('#initials').value;
+    const lowercaseInput = formInput.toLowerCase();
+
+    try {
+        localStorage.setItem(lowercaseInput, score);
+        console.log('Item successfully saved to localStorage.');
+    } catch (error) {
+        console.error('Error while saving to localStorage:', error);
     }
 
+
+}
+
+// }
+/////////////////////
+//Event Listeners
+ansEl.addEventListener('click', checkAns);
+startButtonEl.addEventListener('click', function () {
+    if (startButtonEl.textContent === "Start") {
+        startTimer(time);
+        genQuestion()
+        startButtonEl.textContent = "Skip";
+    }
 });
+
+
+container.addEventListener('click', function (e) {
+    if (e.target.textContent === 'Submit') {
+        saveHighscore()
+    }
+})
