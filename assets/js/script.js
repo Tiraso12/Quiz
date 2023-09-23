@@ -42,32 +42,25 @@ const quizQuestions = [
 ];
 
 
-let time = quizQuestions.length * 10;
 
+let time = quizQuestions.length * 1;
 
 //////////////////////////////////////
 /////TIMER
-const timer = () => {
-    timerId = setInterval(() => {
-        timeEl.textContent = time;
-        if (time <= 0) {
-            clearInterval(timerId);
-
+const startTimer = () => {
+    const tick = () => {
+        if (time === 0) {
+            clearInterval(timer);
+            endGame()
         } else {
-            --time;
+            time--;
         }
-    }, 1000);
+        timeEl.textContent = time;
+    }
+    tick();
+    const timer = setInterval(tick, 1000);
+
 };
-
-//////////////////////////////////////
-/////START THE QUIZ
-
-const startQuiz = function () {
-    startButtonEl.textContent = "Skip";
-    timer()
-    timeEl.textContent = time;
-    generateQuestion()
-}
 
 //////////////////////////////////////
 /////GENETARE QUESTION
@@ -91,7 +84,10 @@ function generateQuestion() {
 function checkAns() {
    
     let btnPressed = event.target;
-    if (!btnPressed.value === quizQuestions[qIndex].correct) {
+    if (btnPressed.value !== quizQuestions[qIndex].correct) {
+        time -= 10;
+        qIndex++
+        generateQuestion()
         return;
     }
     if (btnPressed.value === quizQuestions[qIndex].correct) {
@@ -99,43 +95,17 @@ function checkAns() {
         if (qIndex < quizQuestions.length) {
             generateQuestion();
         } else {
-            time -= 10;
-            clearInterval(timerId);
-            alert('Game over')
-            console.log('Wrong');
+            endGame();
         }
-    } else {
-        console.log('Wrong');
-        time -= 10;
     }
-    if(time <0){
-        time = 0
-        timeEl.textContent= time;
-        clearInterval(interval)
-    }
-    console.log(time);
-
-    qIndex++
-    generateQuestion()
 }
 
-containerAns.addEventListener('click', checkAns);
-startButtonEl.addEventListener('click', function () {
-    console.log(event.target.textContent);
-    if (startButtonEl.textContent === "Start") {
-        startQuiz();
-    } else if (startButtonEl.textContent === 'Skip') {
-        qIndex++;
-        generateQuestion()
-    }
-});
 
 //////////////////////////////////////
 ///// END GAME
 
 function endGame() {
     clearInterval(timerId);
-    timeEl.textContent = "";
     highscore()
 }
 
@@ -143,6 +113,36 @@ function endGame() {
 //// HIGH SCORE
 
 function highscore() {
+    const container = document.querySelector('.container');
+    container.innerHTML = ''
     let highscore;
     highscore = time;
+    const html = `
+    <div class="highscore">
+    <h2 class="header"> Game has Ended!</h2>
+    <p class ="p">Your Score: <span id="score">${highscore}</span></p>
+    <form class="form">
+    <label for="">Enter your initials</label>
+    <input type="text" id="initials" max="3" />
+    </form>
+    <button id="submit" class="btn">Submit</button>
+    </div>
+    `
+    container.insertAdjacentHTML('afterbegin', html);
 }
+
+/////////////////////
+//Event Listeners
+containerAns.addEventListener('click', checkAns);
+startButtonEl.addEventListener('click', function () {
+    console.log(event.target.textContent);
+    if (startButtonEl.textContent === "Start") {
+        startButtonEl.textContent = "Skip";
+        startTimer();
+        generateQuestion()
+    } else if (startButtonEl.textContent === 'Skip') {
+        qIndex++;
+        generateQuestion()
+    }
+
+});

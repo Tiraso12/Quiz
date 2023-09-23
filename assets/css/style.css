@@ -76,4 +76,22 @@ html {
   border: none;
   cursor: pointer;
   width: 15rem;
+
+  transition: all 1s;
+}
+
+.btn:hover,
+.btn:active {
+  background-color: #75e6da;
+  color: #05445e;
+  border: 1px solid #05445e;
+}
+
+.highscore .p {
+  line-height: 1.5;
+  font-size: 1.4rem;
+  padding: 1.2rem;
+}
+.highscore .form {
+  font-size: 1.6rem;
 }
