@@ -65,6 +65,7 @@ html {
   padding: 9px;
   border-radius: 9px;
   /* color: white; */
+  width: 16.2rem;
 }
 
 .btn {
@@ -85,6 +86,10 @@ html {
   background-color: #75e6da;
   color: #05445e;
   border: 1px solid #05445e;
+}
+
+.highscore {
+  margin-top: 8rem;
 }
 
 .highscore .p {
